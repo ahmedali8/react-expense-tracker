@@ -12,30 +12,21 @@ const initialState = {
     transactions: []
 }
 
-console.log('initialState: ', initialState.transactions);
-
 // create context
 export const GlobalContext = createContext(initialState);
 
 // create Global Provider
 export const GlobalProvider = ({ children }) => {
-    console.log('globalcontext: ', initialState.transactions);
+    
+    const [state, dispatch] = useReducer(AppReducer, initialState, () => {
 
-    const newLocalState = () => {
         const localTransactions = localStorage.getItem('transactions');
-//        return {transactions: localTransactions ? JSON.parse(localTransactions) : []};
         return (localTransactions !== null ? JSON.parse(localTransactions) : initialState);
-    }
-
-    const [state, dispatch] = useReducer(AppReducer, initialState, newLocalState);
-
-    console.log('globalcontextState: ', state);
+    });
 
     useEffect(() => {
         localStorage.setItem('transactions', JSON.stringify(state));
     }, [state]);
-
-    console.log('useEffectState: ', state.transactions);
 
     // Actions
     function deleteTransaction(id) {

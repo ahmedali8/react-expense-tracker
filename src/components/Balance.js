@@ -5,8 +5,6 @@ import { GlobalContext } from '../context/GlobalState';
 export const Balance = () => {
     const { transactions } = useContext(GlobalContext);
 
-    console.log('Balance: ', transactions);
-
     const amounts = transactions.map(transaction => transaction.amount);
 
     const total = amounts
