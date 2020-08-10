@@ -11,6 +11,11 @@ export default (state, action) => {
                 transactions: [action.payload, ...state.transactions]
             }
 
+        case 'CLEAR_TRANSACTIONS':
+            return {
+                transactions: state.transactions = []
+            }
+
         default:
             return state;
     }
